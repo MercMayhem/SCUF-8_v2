@@ -1,15 +1,21 @@
-use minifb::{Window, WindowOptions};
+use minifb::Window;
 
 const WIDTH: usize = 64;
 const HEIGHT: usize = 32;
 
 pub struct Display{
-    buf : [[u32; WIDTH]; HEIGHT],
-    window : Window
+    pub buf : [[u32; WIDTH]; HEIGHT],
+    pub window : Window
 }
 
 impl Display{
-    fn refresh_display(&mut self){       
+    // Clear the screen
+    pub fn clear(&mut self){
+        self.buf = [[0; WIDTH]; HEIGHT]
+    }
+
+    // Refresh display with buffer
+    pub fn refresh_display(&mut self){       
         let mut flattened_buffer = [0_u32; 2048];
         for row in 0..32_u16{
             let start_index = row * 64;
@@ -21,7 +27,8 @@ impl Display{
         self.window.update_with_buffer(&flattened_buffer, 64, 32).unwrap()
     }
 
-    fn draw(&mut self, X:u8, Y:u8, sprite:&[u8]) -> bool{
+    // Update the buffer
+    pub fn draw(&mut self, X:u8, Y:u8, sprite:&[u8]) -> bool{
         let mut collision = false;
         
         for row in 0..sprite.len() as u8{    

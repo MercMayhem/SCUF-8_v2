@@ -18,7 +18,7 @@ const FONT_SET: [[u8; 5]; 16] =
 [0xF0,0x80,0xF0,0x80,0xF0],   // E
 [0xF0,0x80,0xF0,0x80,0x80]];  // F
 
-const SCRIPT_ADDR: usize = 0x200;
+pub const SCRIPT_ADDR: usize = 0x200;
 
 impl Emulator{
     // Loading Fontset into memory
